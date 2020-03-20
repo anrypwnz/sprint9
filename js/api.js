@@ -17,12 +17,12 @@ class Api {
     })
       .then(res => res.json())
       .then(res => {
-          console.log(res)
-          //userInfo.name = res.name
-          //userInfo.job = res.about;
+        console.log(res);
+        //userInfo.name = res.name
+        //userInfo.job = res.about;
         //userInfo.setUserInfo(res.name, res.about, res.avatar);
-        new UserInfo(res.name, res.about)
-        userInfoAvatar.style.backgroundImage = `url(${res.avatar})`
+        new UserInfo(res.name, res.about);
+        userInfoAvatar.style.backgroundImage = `url(${res.avatar})`;
         editName.value = userInfoName.textContent;
         editJob.value = userInfoJob.textContent;
       })
@@ -37,7 +37,7 @@ class Api {
       .then(res => res.json())
       .then(res => {
         cardList.render(res);
-        console.log(res)
+        console.log(res);
       })
       .catch(err => console.log(err));
   }
@@ -59,19 +59,26 @@ class Api {
 
   addNewCard(data) {
     return fetch(`${this.baseUrl}/cards`, {
-        method : "POST",
-        body: JSON.stringify(data),
-        headers: {
-            authorization: this.token,
-            "Content-Type": "application/json"
-          },
-          
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: {
+        authorization: this.token,
+        "Content-Type": "application/json"
+      }
     })
-    .then(res => res.json())
-    .then(res => console.log(res))
-    .catch(err => console.log(err))
+      .then(res => res.json())
+      .then(res => console.log(res))
+      .catch(err => console.log(err));
+  }
+
+  deleteCard(id) {
+    return fetch(`${this.baseUrl}/cards/${id}`, {
+      method: "DELETE",
+      headers: {
+        authorization: this.token
+      }
+    })
+      .then(res => res.json())
+      .catch(err => console.log(err));
   }
 }
-
-
-

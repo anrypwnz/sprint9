@@ -144,12 +144,9 @@
     popupToggle.close(windowFormEdit);
   });
 
-  const data = { name: 'MOTOS', 
-  link: 'https://images.unsplash.com/photo-1558981285-501cd9af9426?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60'};
-
   api.loadCards();
   api.getUserInfo();
-  // api.addNewCard(data)
+
 })();
 
 
