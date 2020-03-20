@@ -6,11 +6,7 @@
         userInfoName = document.querySelector(".user-info__name");
         userInfoJob = document.querySelector(".user-info__job");
         userInfoAvatar = document.querySelector(".user-info__photo");
-        createCard = (...args) => new Card(...args);
-        checkProfile = new FormValidator(editProfileForm.elements);
-        checkCardForm = new FormValidator(cardForm.elements);
         listPlace = document.querySelector(".places-list");
-        cardList = new CardList(listPlace, createCard);
         bigPicture = document.querySelector(".big-picture");
         bigPictureContent = document.querySelector(".big-picture__content");
         bigImage = document.querySelector(".big-picture__image");
@@ -19,6 +15,10 @@
         windowFormEdit = rootPlace.querySelector(".popup-edit");
         popupContentEdit = windowFormEdit.querySelector(".popup__content");
         popupContent = windowForm.querySelector(".popup__content");
+        createCard = (...args) => new Card(...args);
+        checkProfile = new FormValidator(editProfileForm.elements);
+        checkCardForm = new FormValidator(cardForm.elements);
+        cardList = new CardList(listPlace, createCard);
         popupToggle = new Popup();
         userInfo = new UserInfo(userInfoName,  userInfoJob, userInfoAvatar);
         api = new Api("cohort9", "2badb77a-39cb-40c6-97af-74736d1f1f5a"); 
@@ -48,10 +48,14 @@
 
   windowForm.addEventListener("submit", function(e) {
     e.preventDefault();
-    cardList.addCard(
-      cardForm.elements.name.value,
-      cardForm.elements.link.value
-    );
+    api.addNewCard({ 
+      name: cardForm.elements.name.value,
+      link: cardForm.elements.link.value
+    })
+    // cardList.addCard(
+    //   cardForm.elements.name.value,
+    //   cardForm.elements.link.value
+    // );
     cardForm.elements.name.value = "";
     cardForm.elements.link.value = "";
     popupToggle.close(windowForm);
@@ -140,9 +144,12 @@
     popupToggle.close(windowFormEdit);
   });
 
+  const data = { name: 'MOTOS', 
+  link: 'https://images.unsplash.com/photo-1558981285-501cd9af9426?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60'};
 
   api.loadCards();
   api.getUserInfo();
+  // api.addNewCard(data)
 })();
 
 
