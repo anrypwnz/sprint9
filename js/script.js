@@ -5,6 +5,7 @@
         editJob = editProfileForm.elements.personJob;
         userInfoName = document.querySelector(".user-info__name");
         userInfoJob = document.querySelector(".user-info__job");
+        userInfoAvatar = document.querySelector(".user-info__photo");
         createCard = (...args) => new Card(...args);
         checkProfile = new FormValidator(editProfileForm.elements);
         checkCardForm = new FormValidator(cardForm.elements);
@@ -19,8 +20,10 @@
         popupContentEdit = windowFormEdit.querySelector(".popup__content");
         popupContent = windowForm.querySelector(".popup__content");
         popupToggle = new Popup();
-        
-  cardList.render(initialCards);
+        userInfo = new UserInfo(userInfoName,  userInfoJob, userInfoAvatar);
+      
+
+ // cardList.render(initialCards);
   document
     .querySelector(".user-info__button")
     .addEventListener("mousedown", function() {
@@ -60,6 +63,16 @@
     ) {
       cardForm.submit.classList.remove("popup__button_active");
       cardForm.submit.setAttribute("disabled", "disabled");
+    }
+  });
+
+  editProfileForm.addEventListener("input", function() {
+    if (
+      editProfileForm.elements[0].value.length == 0 ||
+      editProfileForm.elements[1].value.length == 0
+    ) {
+      editProfileForm.submit.classList.remove("popup__button_active");
+      editProfileForm.submit.setAttribute("disabled", "disabled");
     }
   });
 
@@ -110,11 +123,21 @@
     if (event.target.closest(".big-picture__close")) closeBigPicture();
   });
 
-  editProfileForm.addEventListener("submit", function(event) {
-    event.preventDefault();
-    new UserInfo(editName.value, editJob.value);
+  // editProfileForm.addEventListener("submit", function(event) {
+  //   event.preventDefault();
+  //   new UserInfo(editName.value, editJob.value);
+  //   popupToggle.close(windowFormEdit);
+  // });
+   editName.value = userInfoName.textContent;
+   editJob.value = userInfoJob.textContent;
+
+  editProfileForm.addEventListener("submit", function() {
+    event.preventDefault();  
+    userInfo.setUserInfo(editName.value, editJob.value);
+    userInfo.updateUserInfo();
+    api.updateUserInfo(editName.value, editJob.value);
     popupToggle.close(windowFormEdit);
   });
-  editName.value = userInfoName.textContent;
-  editJob.value = userInfoJob.textContent;
 })();
+
+

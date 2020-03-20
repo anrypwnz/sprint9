@@ -1,11 +1,14 @@
+//TODO fix class
 class UserInfo {
-  constructor(name, job) {
-    this.setUserInfo(name, job);
+  constructor(name, job, avatar) {
+    this.setUserInfo(name, job, avatar);
     this.updateUserInfo();
+
   }
-  setUserInfo(name, job) {
+  setUserInfo(name, job, avatar) {
     this.name = name;
     this.job = job;
+    this.avatar = avatar;
   }
 
   updateUserInfo() {
