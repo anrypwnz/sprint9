@@ -21,6 +21,7 @@
         popupContent = windowForm.querySelector(".popup__content");
         popupToggle = new Popup();
         userInfo = new UserInfo(userInfoName,  userInfoJob, userInfoAvatar);
+        api = new Api("cohort9", "2badb77a-39cb-40c6-97af-74736d1f1f5a"); 
       
 
  // cardList.render(initialCards);
@@ -138,6 +139,10 @@
     api.updateUserInfo(editName.value, editJob.value);
     popupToggle.close(windowFormEdit);
   });
+
+
+  api.loadCards();
+  api.getUserInfo();
 })();
 
 
